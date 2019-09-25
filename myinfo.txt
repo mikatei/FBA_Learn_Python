@@ -5,10 +5,5 @@ When building the stoichiometric matrix- divide compounds into intracellular and
 NOTE: TESTING ON (Function in aux_1 not reading entire file)
 
 
-How to run FBA?
-*Use pyFBA
-*Use the COBRA Toolbox
-
-
 
 
