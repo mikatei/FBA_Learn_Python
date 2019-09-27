@@ -69,7 +69,7 @@ def get_rxn_name_list(parsed_rxn_list_d4):
 
 #From the parsed reactions of a genome, we can create the stoichiometric matrix
 #The parsed rxn list looks like: [[rxn_1],[rxn_2],[rxn_3],...]. Each rxn looks like:
-# [[substrates],[products],direction (<, >, <>), name] 
+# [[substrates],[products],direction (<=, =>, <=>), name] 
 def create_stoichiometric_matrix(parsed_rxn_list_d4):
 
 

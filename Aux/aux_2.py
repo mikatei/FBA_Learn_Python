@@ -33,6 +33,22 @@ def get_rxn_list_d2_example(file_name):
     return rxn_list_d2
 
 
-
+#This function gets you upper and lower bounds from the list of reactions.
+def give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value):
+    
+    bounds = [[],[]]
+    for i in range(len(parsed_rxn_list_d4)):
+        if parsed_rxn_list_d4[i][2] == '<=>':
+            bounds[0].append(-1*bounds_value)
+            bounds[1].append(bounds_value)
+        elif parsed_rxn_list_d4[i][2] == '=>':
+            bounds[0].append(0)
+            bounds[1].append(bounds_value)
+        elif parsed_rxn_list_d4[i][2] == '<=':
+            bounds[0].append(-1*bounds_value)
+            bounds[1].append(0)
+        else:
+            raise ValueError("Direction of reaction none of '<=>','=>', '<='")
+    return bounds
 
 

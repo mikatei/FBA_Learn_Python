@@ -1,14 +1,13 @@
 TD:
-When building the stoichiometric matrix- divide compounds into intracellular and extracellular.
+When building the stoichiometric matrix- divide reactions into intracellular and extracellular.
+  How:
+    Define extracellular - does this mean cells are only imported or exported as well?
+    If compounds have [e0] in their name - move them to the bottom of the matrix.
+
+Generate objective function ( a reaction column to add to the stoichiometric matrix)
+
+
 
 
 NOTE: TESTING ON (Function in aux_1 not reading entire file)
-
-
-How to run FBA?
-*Use pyFBA
-*Use the COBRA Toolbox
-
-
-
 
