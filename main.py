@@ -6,7 +6,7 @@ import numpy as np
 import cobra
 import sympy
 from SVD.aux_1 import get_singular_values
-from Aux.aux_2 import give_upper_lower_bounds_list_d2
+from Aux.aux_2 import give_upper_lower_bounds_list_d2, get_filenames
 from SVD.MIT_process import SVD_MIT
 from SVD.simple import quick_svd
 #from linear_system import create_linear_system_from_matrix, convert_lin_sys_list_d3_to_d1_strings
@@ -20,17 +20,11 @@ def main():
 
 
 def test():
-    paper_file_name='/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/paper_example.txt'
-    txtbook_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/textbook_94_example.txt'
 
-    simple_1_file_name='/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/simple_example.txt'
+    filenames = get_filenames()
 
-    simple_2_file_name='/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/2_simple_example.txt'
-
-    glycolysis_file_name= '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/Glycolysis_example.txt'
-
-
-    rxn_list_d2 = get_rxn_list_d2_example(simple_1_file_name)
+    print("current reactions file: " + filenames[-1])
+    rxn_list_d2 = get_rxn_list_d2_example(filenames[-1])
 
     parsed_rxn_list_d4 = list_of_reaction_strings_to_parsed_reaction_list(rxn_list_d2)
  
@@ -78,6 +72,5 @@ def test():
 
 
 main()
-
 
 

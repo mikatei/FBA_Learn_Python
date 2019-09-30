@@ -52,3 +52,24 @@ def give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value):
     return bounds
 
 
+def get_filenames():
+    filenames = []
+
+    paper_file_name='/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/paper_example.txt'
+    txtbook_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/textbook_94_example.txt'
+
+    simple_1_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/simple_example.txt'
+
+    simple_2_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/2_simple_example.txt'
+
+    glycolysis_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/Glycolysis_example.txt'
+
+
+    penthose_phosphate = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/penthose-phosphate.txt'
+
+    pp2 =  '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/penthose-phosphate_exp.txt'
+
+    filenames = [paper_file_name, txtbook_file_name, simple_1_file_name, simple_2_file_name, glycolysis_file_name, penthose_phosphate, pp2]
+
+    return filenames
+
