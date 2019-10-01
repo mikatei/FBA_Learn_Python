@@ -39,15 +39,5 @@ and uncomment the quick process function, replace "myexample1.txt" with your fil
 
 
 
-In order to run the program from inside the code:
-
-You can make an FBA reaction model and put the file in the 'Examples' directory.
-* The model should look like all the other reaction models in the Examples directory (take a look), with the reaction name (or number) on the left (make sure not to repeat reaction names), then a colon ":", and then the reaction, with each compound preceded by its stoichiometric coefficient (e.g "1" or "-1").
-
-Then go into the file Aux/aux_2.py, and at the last function of the file (the bottom), make a new variable with the location of your file and add it
-to the list of filepaths, add it to the end of the list.
-
-Then you can choose your objective variable in main- if you want the ith reaction to be the one with maximized flux, under objective_index, punch in "i-1"
-
 
 
