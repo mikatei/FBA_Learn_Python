@@ -1,5 +1,11 @@
 # Extra functions for FBA
 
+import os
+
+
+home_path = os.path.dirname(os.path.abspath(__file__))[:-3]
+#print("PATH:")
+#print(home_path)
 
 
 def find_index_of_compound(stoichiomatrix_array, compound_name):
@@ -47,6 +53,7 @@ def give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value):
         elif parsed_rxn_list_d4[i][2] == '<=':
             bounds[0].append(-1*bounds_value)
             bounds[1].append(0)
+
         else:
             raise ValueError("Direction of reaction none of '<=>','=>', '<='")
     return bounds
@@ -55,21 +62,24 @@ def give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value):
 def get_filenames():
     filenames = []
 
-    paper_file_name='/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/paper_example.txt'
-    txtbook_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/textbook_94_example.txt'
+    txtbook_file_name= home_path + 'Examples/textbook_94_example.txt'
 
-    simple_1_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/simple_example.txt'
+    paper_file_name = home_path + 'Examples/paper_example.txt'
 
-    simple_2_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/2_simple_example.txt'
+    simple_1_file_name = home_path + 'Examples/simple_example.txt'
 
-    glycolysis_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/Glycolysis_example.txt'
+    simple_2_file_name = home_path + 'Examples/2_simple_example.txt'
+
+    glycolysis_file_name = home_path + 'Examples/Glycolysis_example.txt'
 
 
-    penthose_phosphate = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/penthose-phosphate.txt'
+    penthose_phosphate = home_path + 'Examples/penthose-phosphate.txt'
 
-    pp2 =  '/Users/omreeg/Programs/Arkin_Lab_Research_Home/FBA_Learn_Python/Examples/penthose-phosphate_exp.txt'
+    pp2 =  home_path + 'Examples/penthose-phosphate_exp.txt'
 
-    filenames = [paper_file_name, txtbook_file_name, simple_1_file_name, simple_2_file_name, glycolysis_file_name, penthose_phosphate, pp2]
+    magic_c = home_path + 'Examples/magic_compound.txt'
+
+    filenames = [paper_file_name, txtbook_file_name, simple_1_file_name, simple_2_file_name, glycolysis_file_name, penthose_phosphate, pp2, magic_c]
 
     return filenames
 

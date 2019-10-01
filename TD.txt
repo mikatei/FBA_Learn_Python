@@ -1,0 +1,3 @@
+Install all dependencies with one file.
+
+Write simple README file.

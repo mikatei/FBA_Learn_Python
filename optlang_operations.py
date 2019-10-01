@@ -39,6 +39,7 @@ def make_variables(S, flux_bounds):
     for i in range(len(row_1)):
         v = Variable('v-' + str(i+1), lb = flux_bounds[0][i], ub = flux_bounds[1][i])
         variables.append(v)
+    print(variables)
     return variables
 
 
@@ -56,6 +57,7 @@ def make_constraints(S, variables):
 
 def make_objective(objective_index, objective_direction, variables):
 
+    #The objective is just to either Maximize or Minimize a Variable.
     obj = Objective(variables[objective_index], direction = objective_direction)
 
     return obj

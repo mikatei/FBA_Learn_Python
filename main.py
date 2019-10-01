@@ -40,7 +40,13 @@ def test():
 
     
     #We assume the objective value is the index of the last added reaction.
-    objective_index = len(parsed_rxn_list_d4)-1
+    #objective_index = len(parsed_rxn_list_d4)-1
+
+    #New objective indeces (subtract one from reaction number):
+    objective_index = len(parsed_rxn_list_d4) - 1
+
+    #objective_index = 10
+
     #The objective direction is 'max', or 'min'
     objective_direction = "max"
 
