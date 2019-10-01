@@ -15,7 +15,7 @@ When you add your Model, please make it in the same format- otherwise the progra
 
 How to Run The Program:
 Make an FBA reaction model and put the file in the 'Examples' directory.
-* The model should look like all the other reaction models in the Examples directory (take a look), with the reaction name (or number) on the left (make sure not to repeat reaction names), then a colon ":", and then the reaction, with each compound preceded by its stoichiometric coefficient (e.g "1" or "-1").
+* The model should look like all the other reaction models in the Examples directory (take a look), with the reaction name (or number) on the left (make sure not to repeat reaction names), then a colon ":", and then the reaction, with each compound preceded by its stoichiometric coefficient (e.g "1", "-1", or whatever integer it may be, "-37?").
 A requirement for naming the file is that it doesn't repeat another file name.
 Make sure to remember the exact name of the file. For example, you can name it "myexample1.txt"
 
