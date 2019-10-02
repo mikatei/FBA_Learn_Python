@@ -17,15 +17,15 @@ $python main.py
 ```
 
 
-The 4 required inputs to the program are 
-(1): a list of reactions as exemplified by the files in the 'Examples' directory.
-(2): An index for the variable you want to optimize (objective function)
-(3): The type of optimization (min or max)
-(4): The max flux value through a reaction (e.g. 100 or 1000)
+The 4 required inputs to the program are: \n 
+(1): a list of reactions as exemplified by the files in the 'Examples' directory. \n
+(2): An index for the variable you want to optimize (objective function) \n
+(3): The type of optimization (min or max) \n
+(4): The max flux value through a reaction (e.g. 100 or 1000) \n
 
-The output will be:
-(1) The stoichiometric matrix made out of the list of reactions.
-(2) The flux vector with all the flux values.
+The output will be: \n
+(1) The stoichiometric matrix made out of the list of reactions.\n
+(2) The flux vector with all the flux values. \n
 
 
 
@@ -42,13 +42,14 @@ Then to run the program run
 
 The user prompt will ask you for the name of your file.
 
+
 Then the user prompt will ask you for the index of the reaction whose flux you want to maximize.
 ( e.g. If the reaction is the third one you listed in the file, write "3")
 
 Continue following the user prompt and you'll get the solved flux vector.
 
 In order to run the program quickly without the user input, go into main.py, and in the function 'main():', comment out the user input function,
-and uncomment the quick process function, replace "myexample1.txt" with your file name, replace all the variables with yours, and run "python main.py" again.
+and uncomment the quick process function, replace "myexample1.txt" with your file name, replace all the variables with yours, and run "main.py" again.
 
 
 
