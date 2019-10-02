@@ -69,11 +69,12 @@ def user_sub(total_file_path):
                    status, model = stoichiomatrix_solution(S,bounds,objective_index-1, objective_direction)
                    model_print(model)
                    fluxes = np.asarray(make_fluxes(model))
+                   print("FLUXES: ")
                    print(fluxes)               
                    #This is a mini-test, product_vector should be zero
                    #For now product_vector should be zero
                    Product_Vector = np.matmul(S,fluxes)
-                   print("TEST: Product Vector. If there is a non-zero value in the Product_Vector then there is an issue with the solution.")
+                   print("TEST: Product Vector. If there is a non-zero (or not close to zero) value in the Product_Vector then there is an issue with the solution.")
                    print(Product_Vector)
             else:
                 print("One of the inputs is incorrect. Stopping program")
@@ -169,7 +170,10 @@ def test():
     S_w_cmpnds = mtrices[0]
     S = mtrices[1]
 
+    print("Stoichiometric Matrix with compound and reaction names")
     print(S_w_cmpnds)
+
+    print("Stoichiometric Matrix by itself: ")
     print(S)
 
     
@@ -189,13 +193,12 @@ def test():
     status, model = stoichiomatrix_solution(S,bounds,objective_index, objective_direction)
     model_print(model)
     fluxes = np.asarray(make_fluxes(model))
+
+    print("FLUXES: ")
     print(fluxes)               
 
-    #This is a mini-test, product_vector should be zero
-    #For now product_vector should be zero
     Product_Vector = np.matmul(S,fluxes)
-
-    print("Product Vector:")
+    print("Product Vector: (all values should be zero or close to zero)")
     print(Product_Vector)
 
 
