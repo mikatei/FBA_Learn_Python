@@ -21,14 +21,14 @@ import os
 
 def main():
     #test()
-    user_input()
+    #user_input()
 
     filename="myexample1.txt"
     objective_index = 0
     objective_direction = "max"
     bounds_value = 100
     PATH_TO_EXAMPLES = dir_path = os.path.dirname(os.path.realpath(__file__)) + '/Examples/'
-    filepath = os.join(PATH_TO_EXAMPLES, filename)
+    filepath = os.path.join(PATH_TO_EXAMPLES, filename)
     #quick_process(filepath,  objective_index, objective_direction, bounds_value)
 
 
@@ -74,7 +74,7 @@ def user_sub(total_file_path):
                    #This is a mini-test, product_vector should be zero
                    #For now product_vector should be zero
                    Product_Vector = np.matmul(S,fluxes)
-                   print("TEST: Product Vector. If all values in Product_Vector are not zero then there is an issue with the solution.")
+                   print("TEST: Product Vector. If there is a non-zero value in the Product_Vector then there is an issue with the solution.")
                    print(Product_Vector)
             else:
                 print("One of the inputs is incorrect. Stopping program")
