@@ -58,6 +58,8 @@ def make_constraints(S, variables):
 def make_objective(objective_index, objective_direction, variables):
 
     #The objective is just to either Maximize or Minimize a Variable.
+    obj_var = variables[objective_index]
+    print("Objective variable name: " + obj_var.name)
     obj = Objective(variables[objective_index], direction = objective_direction)
 
     return obj
@@ -65,6 +67,7 @@ def make_objective(objective_index, objective_direction, variables):
 
 def model_print(model):
     print("status:", model.status)
+    #print("objective variable name: " + model.objective.name)
     print("objective value:", model.objective.value)
     print("----------")
     print(model.variables.items())

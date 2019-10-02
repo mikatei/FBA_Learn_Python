@@ -110,22 +110,25 @@ def fill_in_stoichiomatrix_dict(parsed_rxn_list_d4, stoichiomatrix):
                 if isfloat(substrate[0]):
                     compound_number = float(substrate[0])
                     compound_name = substrate[1]
-                    #print(compound_name)
-                    new_compound_list = stoichiomatrix[compound_name][:]
-                    new_compound_list[i] = new_compound_list[i] - compound_number
-                    #print('A')
-                    #print(new_compound_list)
-                    stoichiomatrix.update({compound_name: new_compound_list})
-                    #print('B')
-                    #print(stoichiomatrix[compound_name])
+                    
+                    print(compound_name)
+                    if len(compound_name) > 0:
+                        new_compound_list = stoichiomatrix[compound_name][:]
+                        new_compound_list[i] = new_compound_list[i] - compound_number
+                        #print('A')
+                        #print(new_compound_list)
+                        stoichiomatrix.update({compound_name: new_compound_list})
+                        #print('B')
+                        #print(stoichiomatrix[compound_name])
             crnt_products = crnt_rxn[1]
             for product in crnt_products:
                 if isfloat(product[0]):
                     compound_number = float(product[0])
                     compound_name = product[1]
-                    new_compound_list = stoichiomatrix[compound_name][:]
-                    new_compound_list[i] = new_compound_list[i] + compound_number
-                    stoichiomatrix[compound_name] = new_compound_list
+                    if len(compound_name) > 0 :
+                        new_compound_list = stoichiomatrix[compound_name][:]
+                        new_compound_list[i] = new_compound_list[i] + compound_number
+                        stoichiomatrix[compound_name] = new_compound_list
         elif crnt_direction == '<=':
             #In this case, the substrates are turning into positives, and the products negative
             crnt_substrates = crnt_rxn[0]
@@ -133,18 +136,21 @@ def fill_in_stoichiomatrix_dict(parsed_rxn_list_d4, stoichiomatrix):
                 if isfloat(substrate[0]):
                     compound_number = float(substrate[0])
                     compound_name = substrate[1]
-                    new_compound_list = stoichiomatrix[compound_name][:]
-                    new_compound_list[i] = new_compound_list[i] + compound_number
-                    stoichiomatrix[compound_name] = new_compound_list
+                    if len(compound_name) > 0:
+                        new_compound_list = stoichiomatrix[compound_name][:]
+                        new_compound_list[i] = new_compound_list[i] + compound_number
+                        stoichiomatrix[compound_name] = new_compound_list
             crnt_products = crnt_rxn[1]
             for product in crnt_products:
                 if isfloat(product[0]):
                     compound_number = float(product[0])
                     compound_name = product[1]
-                    new_compound_list = stoichiomatrix[compound_name][:]
-                    new_compound_list[i] = new_compound_list[i] - compound_number
-                    stoichiomatrix[compound_name] = new_compound_list
+                    if len(compound_name) > 0:
+                        new_compound_list = stoichiomatrix[compound_name][:]
+                        new_compound_list[i] = new_compound_list[i] - compound_number
+                        stoichiomatrix[compound_name] = new_compound_list
         else:
+            print("ERROR: direction value: '<=>' is not recognized.")
             success_var = 1
 
     return [stoichiomatrix, success_var]
