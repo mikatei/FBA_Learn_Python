@@ -18,17 +18,20 @@ $python main.py
 
 
 The 4 required inputs to the program are:  
-*(1): a list of reactions as exemplified by the files in the 'Examples' directory. 
 
-*(2): An index for the variable you want to optimize (objective function) 
+    (1): a list of reactions as exemplified by the files in the 'Examples' directory. 
 
-*(3): The type of optimization (min or max) 
+    (2): An index for the variable you want to optimize (objective function) 
 
-*(4): The max flux value through a reaction (e.g. 100 or 1000) 
+    (3): The type of optimization (min or max) 
+
+    (4): The max flux value through a reaction (e.g. 100 or 1000) 
 
 The output will be:
-*(1) The stoichiometric matrix made out of the list of reactions.
-*(2) The flux vector with all the flux values. 
+
+    (1) The stoichiometric matrix made out of the list of reactions.
+
+    (2) The flux vector with all the flux values. 
 
 
 
