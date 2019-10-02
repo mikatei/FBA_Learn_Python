@@ -6,15 +6,15 @@ This module allows you to run and make examples of FBA.
 
 To install required Python packages:
 
-'''
+```
 $bash install_dependencies.sh
-'''
+```
 
 To run the program:
 
-'''
+```
 $python main.py
-'''
+```
 
 
 The 4 required inputs to the program are 
@@ -36,9 +36,9 @@ Make sure to remember the exact name of the file. For example, you can name it "
 
 Then to run the program run 
 
-'''
+```
 "python main.py"
-'''
+```
 
 The user prompt will ask you for the name of your file.
 
