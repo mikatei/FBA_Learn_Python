@@ -20,8 +20,7 @@ import os
 
 
 def main():
-    #test()
-    #user_input()
+    user_input()
 
     filename="myexample1.txt"
     objective_index = 0
