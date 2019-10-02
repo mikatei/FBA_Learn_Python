@@ -36,7 +36,7 @@ def user_input():
     PATH_TO_EXAMPLES = dir_path = os.path.dirname(os.path.realpath(__file__)) + '/Examples/'
     print(PATH_TO_EXAMPLES)
     
-    file_name = input("What is your example file named?  ")
+    file_name = input("What is your example file named? (e.g. 'myexample.txt'): ")
     
     total_file_path = os.path.join(PATH_TO_EXAMPLES, file_name)
 
