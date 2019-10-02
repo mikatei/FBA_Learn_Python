@@ -74,7 +74,7 @@ def user_sub(total_file_path):
                    #This is a mini-test, product_vector should be zero
                    #For now product_vector should be zero
                    Product_Vector = np.matmul(S,fluxes)
-                   print("Product Vector:")
+                   print("TEST: Product Vector. If all values in Product_Vector are not zero then there is an issue with the solution.")
                    print(Product_Vector)
             else:
                 print("One of the inputs is incorrect. Stopping program")
@@ -200,8 +200,7 @@ def test():
     print(Product_Vector)
 
 
-
-   return 0
+    return 0
 
 
 
