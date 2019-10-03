@@ -6,14 +6,14 @@ This module allows you to run and make examples of FBA.
 
 To install required Python packages:
 
-```
-$bash install_dependencies.sh
+```bash
+$ bash install_dependencies.sh
 ```
 
 To run the program:
 
-```
-$python main.py
+```bash
+$ python main.py
 ```
 
 
@@ -40,10 +40,10 @@ Make an FBA reaction model and put the file in the 'Examples' directory.
 A requirement for naming the file is that it doesn't repeat another file name.
 Make sure to remember the exact name of the file. For example, you can name it "myexample1.txt"
 
-Then to run the program run 
+To run the program:
 
-```
-"python main.py"
+```bash
+$ python main.py
 ```
 
 The user prompt will ask you for the name of your file.
@@ -56,13 +56,3 @@ Continue following the user prompt and you'll get the solved flux vector.
 
 In order to run the program quickly without the user input, go into main.py, and in the function 'main():', comment out the user input function,
 and uncomment the quick process function, replace "myexample1.txt" with your file name, replace all the variables with yours, and run "main.py" again.
-
-
-
-
-
-
-
-
-
-

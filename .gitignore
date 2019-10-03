@@ -1,2 +1,11 @@
 myinfo.txt
 xt.py
+/build/
+/dist/
+*.pyc
+.mypy_cache/
+.cache/
+/tmp/
+coverage_report/
+.coverage
+__pycache__/
