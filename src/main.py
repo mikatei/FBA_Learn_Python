@@ -26,14 +26,14 @@ def main():
     objective_index = 0
     objective_direction = "max"
     bounds_value = 100
-    PATH_TO_EXAMPLES = dir_path = os.path.dirname(os.path.realpath(__file__)) + '/Examples/'
+    PATH_TO_EXAMPLES = dir_path = os.path.dirname(os.path.realpath(__file__))
     filepath = os.path.join(PATH_TO_EXAMPLES, filename)
     #quick_process(filepath,  objective_index, objective_direction, bounds_value)
 
 
 def user_input():
 
-    PATH_TO_EXAMPLES = dir_path = os.path.dirname(os.path.realpath(__file__)) + '/Examples/'
+    PATH_TO_EXAMPLES = dir_path = os.path.dirname(os.path.realpath(__file__))
     print(PATH_TO_EXAMPLES)
     
     file_name = input("What is your example file named? (e.g. 'myexample.txt'): ")
