@@ -2,9 +2,11 @@
 
 from Aux.parsing import tsv_to_d2_list
 from Aux.aux_2 import find_index_of_compound
+import logging
+
+
 
 #Finding direction of reaction
-
 #Returns direction of reaction: '<=', '<=>', or '=>'
 def reaction_direction(reaction_str):
 
@@ -17,8 +19,8 @@ def reaction_direction(reaction_str):
         t = '=>'
     else:
         t = '0'
-        print("ERROR: incorrectly formatted reaction. Must include '<' or '>' or both.")
-        print(reaction_str)
+        logging.debug("ERROR: incorrectly formatted reaction. Must include '<' or '>' or both.")
+        logging.debug(reaction_str)
 
     return t
 
@@ -64,7 +66,7 @@ def extract_all_compounds_from_parsed_rxn_list(parsed_rxn_list_d4):
         compounds.update(new_compounds)
 
     final_compounds = list(compounds)
-    #print(len(final_compounds))
+    #logging.debug(len(final_compounds))
     final_compounds.sort()
     if "" in final_compounds:
         final_compounds.remove("")
@@ -111,15 +113,15 @@ def fill_in_stoichiomatrix_dict(parsed_rxn_list_d4, stoichiomatrix):
                     compound_number = float(substrate[0])
                     compound_name = substrate[1]
                     
-                    print(compound_name)
+                    logging.debug(compound_name)
                     if len(compound_name) > 0:
                         new_compound_list = stoichiomatrix[compound_name][:]
                         new_compound_list[i] = new_compound_list[i] - compound_number
-                        #print('A')
-                        #print(new_compound_list)
+                        #logging.debug('A')
+                        #logging.debug(new_compound_list)
                         stoichiomatrix.update({compound_name: new_compound_list})
-                        #print('B')
-                        #print(stoichiomatrix[compound_name])
+                        #logging.debug('B')
+                        #logging.debug(stoichiomatrix[compound_name])
             crnt_products = crnt_rxn[1]
             for product in crnt_products:
                 if isfloat(product[0]):
@@ -150,7 +152,7 @@ def fill_in_stoichiomatrix_dict(parsed_rxn_list_d4, stoichiomatrix):
                         new_compound_list[i] = new_compound_list[i] - compound_number
                         stoichiomatrix[compound_name] = new_compound_list
         else:
-            print("ERROR: direction value: '<=>' is not recognized.")
+            logging.debug("ERROR: direction value: '<=>' is not recognized.")
             success_var = 1
 
     return [stoichiomatrix, success_var]
@@ -159,11 +161,11 @@ def fill_in_stoichiomatrix_dict(parsed_rxn_list_d4, stoichiomatrix):
 def fill_in_stoichiomatrix_array(parsed_rxn_list_d4, stoichiomatrix_array):
 
     success_var = 0
-    print("LEN: " + str(len(parsed_rxn_list_d4)))
+    logging.debug("LEN: " + str(len(parsed_rxn_list_d4)))
     for i in range(1, len(parsed_rxn_list_d4)):
         crnt_rxn = parsed_rxn_list_d4[i]
         crnt_direction = crnt_rxn[2]
-        print(crnt_direction)
+        logging.debug(crnt_direction)
         if (crnt_direction == '=>') or (crnt_direction == '<=>'):
             #In this case, the substrates are turning into negatives, and the products positive
             crnt_substrates = crnt_rxn[0]
@@ -171,14 +173,14 @@ def fill_in_stoichiomatrix_array(parsed_rxn_list_d4, stoichiomatrix_array):
                 if isfloat(substrate[0]):
                     compound_number = float(substrate[0])
                     compound_name = substrate[1]
-                    #print(compound_name)
+                    #logging.debug(compound_name)
                     compound_index = find_index_of_compound(stoichiomatrix_array, compound_name)
                     if compound_index != -1:
                         new_compound_list = stoichiomatrix_array[compound_index][:]
                         new_compound_list[i] = float(new_compound_list[i]) - compound_number
-                        print('NCL START')
-                        print(new_compound_list)
-                        print('NCL STOP')
+                        logging.debug('NCL START')
+                        logging.debug(new_compound_list)
+                        logging.debug('NCL STOP')
                         stoichiomatrix_array[compound_index] = new_compound_list
             crnt_products = crnt_rxn[1]
             for product in crnt_products:
