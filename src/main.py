@@ -8,7 +8,7 @@ import logging
 #The following imports require no downloads
 from stoichiometric_matrix import *
 from SVD.aux_1 import get_singular_values
-from Aux.aux_2 import give_upper_lower_bounds_list_d2, get_filenames
+from Aux.aux_2 import give_upper_lower_bounds_list_d2, get_filenames, make_use_variables
 from Aux.check_for_imbalance import get_indices_of_imbalanced_compounds
 from SVD.MIT_process import SVD_MIT
 from SVD.simple import quick_svd
@@ -24,14 +24,16 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 def main():
     #user_input()
 
-    filename="TCA_copy_2.txt"
-    objective_index = 24
+    filename="TCA_cycle_1.txt"
+    objective_index = 3
     objective_direction = "max"
     bounds_value = 100
+    #unused reactions starts at index 1
+    unused_reactions = []
     PATH_TO_EXAMPLES = dir_path = os.path.dirname(os.path.realpath(__file__))[:-3] + 'Examples/'
     filepath = os.path.join(PATH_TO_EXAMPLES, filename)
-    quick_process(filepath,  objective_index, objective_direction, bounds_value)
-
+    #quick_process(filepath,  objective_index, objective_direction, bounds_value)
+    TMFA_quick(filepath, objective_index, objective_direction, bounds_value, unused_reactions)
 
 def user_input():
 
@@ -92,7 +94,9 @@ def get_Stoichiometric_Matrix_from_File(filepath, bounds_value ):
 
     parsed_rxn_list_d4 = list_of_reaction_strings_to_parsed_reaction_list(rxn_list_d2)
  
-    bounds = give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value)
+    use_variables = make_use_variables(len(parsed_rxn_list_d4),[])
+
+    bounds = give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value, use_variables)
 
     mtrices = create_stoichiometric_matrix(parsed_rxn_list_d4)
     
@@ -123,8 +127,15 @@ def quick_process(filepath, objective_index, objective_direction, bounds_value):
     rxn_list_d2 = get_rxn_list_d2_example(filepath)
 
     parsed_rxn_list_d4 = list_of_reaction_strings_to_parsed_reaction_list(rxn_list_d2)
- 
-    bounds = give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value)
+
+    use_variables = make_use_variables(len(parsed_rxn_list_d4),[])
+
+
+    bounds = give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value, use_variables)
+
+    # The use variables can cancel out the usage of a reaction by setting upper or lower bounds to zero.
+    use_variables = []
+
 
     mtrices = create_stoichiometric_matrix(parsed_rxn_list_d4)
     S_w_cmpnds = mtrices[0]
@@ -158,6 +169,59 @@ def quick_process(filepath, objective_index, objective_direction, bounds_value):
 
 
     return 0
+
+def TMFA_quick(filepath, objective_index, objective_direction, bounds_value, unused_rxns):
+
+    rxn_list_d2 = get_rxn_list_d2_example(filepath)
+
+    parsed_rxn_list_d4 = list_of_reaction_strings_to_parsed_reaction_list(rxn_list_d2)
+
+    
+    #Here is where we implement the unused reactions
+    use_variables = make_use_variables(len(parsed_rxn_list_d4),unused_rxns)
+
+
+    bounds = give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value, use_variables)
+
+    # The use variables can cancel out the usage of a reaction by setting upper or lower bounds to zero.
+    use_variables = []
+
+
+    mtrices = create_stoichiometric_matrix(parsed_rxn_list_d4)
+    S_w_cmpnds = mtrices[0]
+    S = mtrices[1]
+
+
+
+    logging.info("Stoichiometric Matrix with Compound Names and Reactions.")
+    logging.info(S_w_cmpnds)
+
+    logging.info("Stoichiometric Matrix")
+    logging.info(S)
+
+
+    #We solve the system of solutions using optlang
+    status, model = stoichiomatrix_solution(S,bounds,objective_index, objective_direction)
+    model_print(model)
+    fluxes = np.asarray(make_fluxes(model))
+
+    print("Fluxes: \n")
+    print(fluxes)               
+
+    #This is a mini-test, product_vector should be zero
+    #For now product_vector should be zero
+    Product_Vector = np.matmul(S,fluxes)
+
+    logging.debug("Product Vector:")
+    logging.debug(Product_Vector)
+
+
+
+
+    return 0
+
+
+
 
 
 

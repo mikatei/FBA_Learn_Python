@@ -2,7 +2,7 @@
 # More info here: https://optlang.readthedocs.io/en/latest/
 
 from optlang import Model, Variable, Constraint, Objective
-
+import logging
 # You can declare the symbolic variables here with upper and lower bounds:
 
 '''
@@ -58,11 +58,15 @@ def make_constraints(S, variables):
 def make_objective(objective_index, objective_direction, variables):
 
     #The objective is just to either Maximize or Minimize a Variable.
-    obj_var = variables[objective_index]
-    print("Objective variable name: " + obj_var.name)
-    obj = Objective(variables[objective_index], direction = objective_direction)
+    if objective_index >= len(variables):
+        logging.warning('You are maximizing a reaction number that is greater than the total number of reactions. Please choose another objective_index that is less than the total reactions.')
+        raise RuntimeError('Choose new objective index')
+    else:
+        obj_var = variables[objective_index]
+        logging.info("Objective variable name: " + obj_var.name)
+        obj = Objective(variables[objective_index], direction = objective_direction)
 
-    return obj
+        return obj
 
 
 def model_print(model):

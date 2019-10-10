@@ -32,13 +32,15 @@ from scipy import linalg
 
 
 # The input to this will be a list of [reaction_string, reaction_name]
-def parse_reaction_into_compound_numbers(reaction_list_d1):
+# The output is either a single parsed reaxtion in a list
+def parse_reaction_into_compound_numbers(reaction_list_d1, therm_bool):
 
+    parsed_rxns_subset_d4 = []
     reaction_str = reaction_list_d1[0]
     reaction_name = reaction_list_d1[1]
     #t stands for direction of reaction, can either be '<=', '=>', or '<=>'
     t = reaction_direction(reaction_str)
-
+    
     #Splitting the reaction string into substrates and products strings.
     split_1 = reaction_str.split(t)
     substrates_str = split_1[0]
@@ -47,15 +49,33 @@ def parse_reaction_into_compound_numbers(reaction_list_d1):
     #Now we pull out each compound and its number
     substrates = turn_reaction_half_into_list(substrates_str)
     products = turn_reaction_half_into_list(products_str)
-    parsed_rxn_d3 = [substrates, products, t, reaction_name]
-    return parsed_rxn_d3
-        
+    
+    #Depending on whether we are using thermodynamics or not, you may need to split the bidirectional reactions into
+    #    separate components (i.e. <=> turns into both => and <=)
+    if therm_bool == True:
+
+        if t == '<=>':
+            parsed_rxns_subset_d4.append([substrates,products,'=>',reaction_name])
+            parsed_rxns_subset_d4.append([substrates,products,'<=',reaction_name])
+            return parsed_rxns_subset_d4
+        else:
+            parsed_rxns_subset_d4.append([substrates, products, t, reaction_name])
+            return parsed_rxns_subset_d4
+    else:
+            parsed_rxns_subset_d4.append([substrates, products, t, reaction_name])
+            return parsed_rxns_subset_d4
+
+
+
+
         
 #NOTE: in the downloaded model, the last reaction is different, eg 'bio1'- which should not be used.
 def list_of_reaction_strings_to_parsed_reaction_list(rxn_string_list_d2):
     parsed_rxn_list_d4 = []
     for i in range(len(rxn_string_list_d2)):
-        parsed_rxn_list_d4.append(parse_reaction_into_compound_numbers(rxn_string_list_d2[i]))
+        parsed_rxns_sub_d4 = parse_reaction_into_compound_numbers(rxn_string_list_d2[i], False)
+        for parsed_rxn_list_d3 in parsed_rxns_sub_d4:
+            parsed_rxn_list_d4.append(parsed_rxn_list_d3)
     return parsed_rxn_list_d4
 
 def get_rxn_name_list(parsed_rxn_list_d4):
@@ -168,18 +188,6 @@ def test_sm():
 
 def main():
 
-    '''
-    file_name='/Users/omreeg/Programs/Arkin_Lab_Research_Home/Data/Testing_Data/CACIA_model_kbase.TSV/kb|g.220339.fbamdl0-reactions.tsv'
-    
-    #rxn_list_d2 is: [['rxn string', 'rxn name'], ['rxn string', 'rxn name'], etc...]
-    rxn_list_d2 = get_rxn_list_d2_from_file(file_name)
-
-    #parsed_rxn_list_d4: [[rxn],[rxn],] where [rxn] =[[sbstrts],[prdcts],direction,name]
-    #[sbstrts] looks like [[num,cmpnd],[num,cmpnd]...]
-    parsed_rxn_list_d4 = list_of_reaction_strings_to_parsed_reaction_list(rxn_list_d2)
-    S = create_stoichiometric_matrix(parsed_rxn_list_d4)
-    print(S)
-    '''
     test_sm()
 
 #main()

@@ -39,23 +39,39 @@ def get_rxn_list_d2_example(file_name):
     return rxn_list_d2
 
 
+def make_use_variables(total_num_rxns, list_of_unused_rxns):
+    # 1 represents reaction in use, 0 represents not used.
+    use_variables = [1]*total_num_rxns
+    #list_of_unused_rxns must contain rxns indexed starting at 1- user input.
+    for num in list_of_unused_rxns:
+        use_variables[num-1] = 0
+    return use_variables
+
+
+
 #This function gets you upper and lower bounds from the list of reactions.
-def give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value):
+#Bounds is a list which contains two lists- one of lower bounds, one of upper bounds.
+def give_upper_lower_bounds_list_d2(parsed_rxn_list_d4, bounds_value, use_variables):
     
     bounds = [[],[]]
     for i in range(len(parsed_rxn_list_d4)):
-        if parsed_rxn_list_d4[i][2] == '<=>':
-            bounds[0].append(-1*bounds_value)
-            bounds[1].append(bounds_value)
-        elif parsed_rxn_list_d4[i][2] == '=>':
-            bounds[0].append(0)
-            bounds[1].append(bounds_value)
-        elif parsed_rxn_list_d4[i][2] == '<=':
-            bounds[0].append(-1*bounds_value)
-            bounds[1].append(0)
+        if use_variables[i] == 1:
+            if parsed_rxn_list_d4[i][2] == '<=>':
+                bounds[0].append(-1*bounds_value)
+                bounds[1].append(bounds_value)
+            elif parsed_rxn_list_d4[i][2] == '=>':
+                bounds[0].append(0)
+                bounds[1].append(bounds_value)
+            elif parsed_rxn_list_d4[i][2] == '<=':
+                bounds[0].append(-1*bounds_value)
+                bounds[1].append(0)
 
+            else:
+                raise ValueError("Direction of reaction none of '<=>','=>', '<='")
+        #rxn is out of use.
         else:
-            raise ValueError("Direction of reaction none of '<=>','=>', '<='")
+            bounds[0].append(0)
+            bounds[1].append(0)
     return bounds
 
 
