@@ -34,9 +34,20 @@ def turn_reaction_half_into_list(half_rxn_str):
             loc_1 = compound.find('(')
             loc_2 = compound.find(')')
             #TD Catch errors in loc_1 and loc_2
-            num_compound = compound[loc_1 + 1:loc_2]
-            compound_name = compound[loc_2 + 1:].replace(' ', '')
-            output_list.append([num_compound, compound_name])
+            c = compound[loc_1 + 1:loc_2]
+            if c != '':
+                try:
+                    num_compound = float(c)
+                except ValueError:
+                    print("PROBLEM VALUE: " + c + ':' + str(len(c)))
+                    print(half_rxn_str)
+                    num_compound = "?"
+
+                if num_compound != "?":
+                    compound_name = compound[loc_2 + 1:].replace(' ', '')
+                    output_list.append([num_compound, compound_name])
+            else:
+                logging.critical('compound not found')
         return output_list
 
 

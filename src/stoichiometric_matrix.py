@@ -14,7 +14,7 @@
 
 from Aux.aux_1 import reaction_direction, turn_reaction_half_into_list, extract_all_compounds_from_parsed_rxn_list, get_rxn_list_d2_from_file, fill_in_stoichiomatrix_dict, fill_in_stoichiomatrix_array
 from Aux.aux_2 import get_rxn_list_d2_example
-
+import logging
 import numpy as np
 from scipy import linalg
 
@@ -55,8 +55,8 @@ def parse_reaction_into_compound_numbers(reaction_list_d1, therm_bool):
     if therm_bool == True:
 
         if t == '<=>':
-            parsed_rxns_subset_d4.append([substrates,products,'=>',reaction_name])
-            parsed_rxns_subset_d4.append([substrates,products,'<=',reaction_name])
+            parsed_rxns_subset_d4.append([substrates,products,'=>',reaction_name + 'a'])
+            parsed_rxns_subset_d4.append([products,substrates,'=>',reaction_name + 'b'])
             return parsed_rxns_subset_d4
         else:
             parsed_rxns_subset_d4.append([substrates, products, t, reaction_name])
@@ -70,10 +70,10 @@ def parse_reaction_into_compound_numbers(reaction_list_d1, therm_bool):
 
         
 #NOTE: in the downloaded model, the last reaction is different, eg 'bio1'- which should not be used.
-def list_of_reaction_strings_to_parsed_reaction_list(rxn_string_list_d2):
+def list_of_reaction_strings_to_parsed_reaction_list(rxn_string_list_d2, therm_bool):
     parsed_rxn_list_d4 = []
     for i in range(len(rxn_string_list_d2)):
-        parsed_rxns_sub_d4 = parse_reaction_into_compound_numbers(rxn_string_list_d2[i], False)
+        parsed_rxns_sub_d4 = parse_reaction_into_compound_numbers(rxn_string_list_d2[i], therm_bool)
         for parsed_rxn_list_d3 in parsed_rxns_sub_d4:
             parsed_rxn_list_d4.append(parsed_rxn_list_d3)
     return parsed_rxn_list_d4
@@ -96,7 +96,7 @@ def create_stoichiometric_matrix(parsed_rxn_list_d4):
     # 1 column per reaction
     num_of_columns = len(parsed_rxn_list_d4)
 
-    
+    #compounds is just a list of strings with compound names
     compounds = extract_all_compounds_from_parsed_rxn_list(parsed_rxn_list_d4)
     num_of_rows = len(compounds)
 
@@ -144,12 +144,14 @@ def create_stoichiometric_matrix(parsed_rxn_list_d4):
     #TEST 2
     #print(stoichiomatrix_dict_updated['cpd02074[c0]'])
     
-    print("Total Elements in Matrix: " + str(len(compounds)*len(parsed_rxn_list_d4)))
-    print("Total nonzero elements: " + str(c))
-    print("Percentage: " + str(float(c/(len(compounds)*len(parsed_rxn_list_d4)))))
+    logging.info("Total Elements in Matrix: " + str(len(compounds)*len(parsed_rxn_list_d4)))
+    logging.info("Total Reaction Number: " + str(len(parsed_rxn_list_d4)))
+    logging.info("Total Compounds: " + str(len(compounds)))
+    logging.info("Total nonzero elements: " + str(c))
+    logging.info("Percentage: " + str(float(c/(len(compounds)*len(parsed_rxn_list_d4)))))
 
-    print("max count: " + str(max_count))
-    print("max compound: " + max_compound)
+    logging.info("max count: " + str(max_count))
+    logging.info("max compound: " + max_compound)
 
     #cmpnd_mtrx holds the compound names as well as the stoichiometric values
     cmpnd_mtrx = []

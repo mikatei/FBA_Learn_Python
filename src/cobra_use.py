@@ -5,6 +5,51 @@ from __future__ import print_function
 
 from cobra import Model, Reaction, Metabolite
 
+
+
+
+def create_metabolite(met_id, formula, name, compartment):
+    new_met = Metabolite(met_id, formula, name, compartment)
+    return new_met
+
+# metabolites contains both the metabolite information and it's coefficient
+def create_reaction(rxn_id, name, subsystem, lower_bound, upper_bound, metabolites_d3):
+    reaction = Reaction(rxn_id)
+    reaction.name = name
+    reaction.subsystem = subsystem
+    reaction.lower_bound = lower_bound
+    reaction.upper_bound = upper_bound
+    for metabolite_d2 in metabolites_d3:
+        metabolite_data = metabolite_d2[0]
+        metabolite_coeff = metabolite_d2[1]
+        new_met = create_metabolite(metabolite_data)
+        reaction.add_metabolites({ new_met: metabolite_coeff })
+
+    return reaction
+
+
+def create_model_from_rxns(name, rxns_d5, objective_rxn_id):
+    model = Model(name)
+    for rxn_d4 in rxns_d5:
+        new_rxn = create_rxn(rxn_d4)
+        model.add_reactions([new_rxn])
+    model.objective = objective_rxn_id
+    return model
+
+def run_fba(model_name, rxns_d5, objective_rxn_id, media):
+    model = create_model_from_rxns(model_name, rxns_d5, objective_rxn_id)
+    solution = model.optimize()
+
+    print(solution.objective_value) # The objective value
+    print(solution.status) # The status from the linear programming solver
+    print(solution.fluxes) # A pandas series with flux indexed by reaction identifier.
+    print(solution.shadow_prices) # A pandas series with shadow price indexed by the metabolite id
+   
+
+    
+
+
+
 def online_example():
     model = Model('example_model')
     reaction = Reaction('30AS140')
