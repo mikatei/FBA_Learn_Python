@@ -27,7 +27,7 @@ def reaction_direction(reaction_str):
 
 def turn_reaction_half_into_list(half_rxn_str):
         output_list = []
-        compounds = half_rxn_str.split('+')
+        compounds = half_rxn_str.split(' + ')
         for i in range(len(compounds)):
             compound = compounds[i]
             #find index of '(' and ')' then add int(in between)
