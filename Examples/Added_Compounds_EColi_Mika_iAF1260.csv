@@ -1,0 +1,12 @@
+id,name,formula,charge,inchikey,smiles,deltag,kegg id,
+cpd24291_c0,deoxyviolacein,C20H13N3O2,0,OJUJNNKCVPCATE-QGOAFFKASA-N,OC1=NC(c2c[nH]c3ccccc23)=CC1=C1C(O)=Nc2ccccc21,40.47,,cpd24291
+cpd24294_c0,proviolacein,C20H13N3O2,0,AEUPUFUMWGIQGG-UHFFFAOYSA-N,O=C1N=C(c2c[nH]c3ccc(O)cc23)C=C1c1c[nH]c2ccccc12,64.8,,cpd24294
+cpd28321_c0,violacein,C20H13N3O3,0,XAPNKXIRQFHCHN-QGOAFFKASA-N,OC1=NC(c2c[nH]c3ccc(O)cc23)=CC1=C1C(O)=Nc2ccccc21,0.99,,cpd28321
+cpd24292_c0,protoviolaceinate,C21H14N3O3,-1,HNIIMOJBRIPGHJ-UHFFFAOYSA-M,O=C(O)c1[nH]c(-c2c[nH]c3ccc([O-])cc23)cc1-c1c[nH]c2ccccc12,38.96,,cpd24292
+cpd24293_c0,protodeoxyviolaceinate,C21H14N3O2,-1,SFLGFRJGKHRRID-UHFFFAOYSA-M,O=C([O-])c1[nH]c(-c2c[nH]c3ccccc23)cc1-c1c[nH]c2ccccc12,78.44,,cpd24293
+cpd24295_c0,prodeoxyviolacein,C20H13N3O,0,FJERIADMHRRYAW-UHFFFAOYSA-N,O=C1N=C(c2c[nH]c3ccccc23)C=C1c1c[nH]c2ccccc12,104.28,,cpd24295
+cpd24296_c0,deoxyviolaceinate,C21H14N3O3,-1,YNGCGCMGWQFYIK-UHFFFAOYSA-M,O=C(O)c1[nH]c(-c2c[nH]c3ccccc23)cc1-c1c([O-])[nH]c2ccccc12,40.18,,cpd24296
+cpd24297_c0,violaceinate,C21H14N3O4,-1,AVEFAUDTSHGJQO-UHFFFAOYSA-M,O=C(O)c1[nH]c(-c2c[nH]c3ccc([O-])cc23)cc1-c1c(O)[nH]c2ccccc12,0.7,,cpd24297
+cpd23128_c0,IPA-imine,C11H10N2O2,0,LKYWXXAVLLVJAS-UHFFFAOYSA-M,N=C(Cc1c[nH]c2ccccc12)C(=O)[O-],-32.85,,cpd23128
+cpd23085_c0,chromopyrrolate,C22H13N3O4,-2,FZDVNXHYGMEEDT-UHFFFAOYSA-L,O=C([O-])c1[nH]c(C(=O)[O-])c(-c2c[nH]c3ccccc23)c1-c1c[nH]c2ccccc12,-2.97,,cpd23085
+cpd23088_c0,K-252c,C20H13N3O,0,MEXUTNIFSHFQRG-UHFFFAOYSA-N,OC1=NCc2c1c1c3ccccc3[nH]c1c1[nH]c3ccccc3c21,79.01,,cpd23088
