@@ -1,8 +1,4 @@
 #python
-
-
-
-
 import cobra.test
 import cobra
 from cobra import Model, Reaction, Metabolite
@@ -24,8 +20,6 @@ def compounds_parser(cfile):
     file_list = file_str.split('\n')
     file_list = file_list[1:]
     return file_list
-
-
 '''
 Inputs:
     rfile: (str) file_path to a CSV file with reactions
@@ -39,8 +33,6 @@ def reactions_parser(rfile):
     file_list = file_str.split('\n')
     file_list = file_list[2:]
     return file_list
-
-
 '''
 Inputs:
     c_f_list: (list) A list made from the compounds file, each element is a row from the file
@@ -61,23 +53,16 @@ def add_compounds_to_compound_dict(c_f_list):
                 name = compound[1],
                 compartment = 'c'
                 )
-
         #We add two different formats for the compounds:
         compound_dict[compound[0] + '[c0]'] = met
         compound_dict[compound[0].replace('_c0','[c0]')] = met
-
     logging.debug(compound_dict)
-
     return compound_dict
-
-
 '''
 Inputs:
     r_f_list: (list) A list made from the reactions file, each element is a row from the CSV file 
     compound_dict: (dict) A dictionary mapping compound names to metabolites in cobrapy format.
     c_model: (class) The cobrapy model
-
-
 Outputs:
     c_model: (class) The cobrapy model
 
@@ -99,8 +84,6 @@ def add_reactions_to_model(r_f_list, compound_dict, c_model):
         lwr_bnd = 0
         up_bnd = 1000
         rxn_dict = convert_rxn_info_to_rxn_dict(compound_coefficient_list, rxn_id, rxn_name, subsystem, lwr_bnd, up_bnd)
-
-
         for cmpnd in compound_coefficient_list:
             logging.debug(cmpnd)
             if cmpnd[1] in compound_dict:
@@ -110,9 +93,7 @@ def add_reactions_to_model(r_f_list, compound_dict, c_model):
                 raise Exception("Reaction incomplete, cannot continue.")
         logging.debug(reaction.reaction)
         c_model.add_reactions([reaction])
-
     return c_model
-
 
 """
 Inputs:
@@ -144,8 +125,6 @@ def convert_rxn_info_to_rxn_dict(compound_coefficient_list, rxn_id, rxn_name, su
     rxn_dict["compound_list"] = compound_list
 
     return rxn_dict
-
-
 '''
 Inputs:
     rxn_dict: (dict):
@@ -173,13 +152,8 @@ def make_cobra_reaction(reaction_dict, model_metabolites_list, custom_metabolite
     for cmpnd_dict in compound_list:
         compound_name = cmpnd_dict["compound_name"]
         if compound_name in custom_metabolites_list:
-
-        
-
-    raise Exception("Incomplete Function")
+            raise Exception("Incomplete Function")
     return 0
-
-
 '''
 Inputs:
     cobra_model: (cobrapy model object) The Model object to test.
@@ -202,13 +176,9 @@ def check_if_compound_names_in_model(cobra_model, compound_names):
     logging.debug("Not in Model: " + str(len(not_in_model)) + "metabolites")
     compounds_info_dict = {"in_model": in_model, "not_in_model": not_in_model}
     return compounds_info_dict 
-
-
-
 """
 Inputs:
     half_rxn_str: (str)
-
 Outputs:
     half_compound_list: (list) A list of internal lists of size 2: [[#cmpnd, nameofcmpnd],[#cmpnd,nameofcmpnd]...]
 
@@ -230,7 +200,6 @@ def turn_reaction_half_into_list(half_rxn_str):
                     print("PROBLEM VALUE: " + c + ':' + str(len(c)))
                     print(half_rxn_str)
                     num_compound = "?"
-
                 if num_compound != "?":
                     compound_name = compound[loc_2 + 1:].replace(' ', '')
                     output_list.append([num_compound, compound_name])
@@ -238,9 +207,6 @@ def turn_reaction_half_into_list(half_rxn_str):
                 logging.critical('compound not found')
         half_compound_list = output_list
         return half_compound_list
-
-
-
 #returns a list with 2 parts.
 def split_reaction(reaction_str):
 
@@ -256,8 +222,6 @@ def split_reaction(reaction_str):
         return { "halves_list": reaction_str.split("<="), "direction" : "<"}
     else:
         raise Exception("Could not parse reaction equation into two parts: " + reaction_str)
-
-
 """
 Inputs:
     part_1: (list) half_compound_list (a list of M*[#cmpnd, name_ofcompound])
@@ -281,9 +245,6 @@ def convert_compound_lists_to_proper_form(part_1, part_2, direction):
 
     compounds_coefficients_list = part_1 + part_2
     return compounds_coefficients_list
-
-
-
 """
 Inputs:
     filepath_to_model: (str)
@@ -293,31 +254,19 @@ Outputs:
 def upload_sbml_model(filepath_to_model):
     main_model = cobra.io.read_sbml_model(filepath_to_model)
     return main_model
-
-
 def tests():
-
     logging.basicConfig(level=logging.DEBUG)
-   
-    sbml_file = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/Current_Projects/Mika/FBA_Learn_Python/Examples/iAF1260.xml'
-
+    sbml_file = './Examples/iAF1260.xml'
     main_model = upload_sbml_model(sbml_file)
-
     #We check if names of compounds are already in model-
     compounds_test_list = ['nadh_c','nad_c', 'co2_c', 'nh4_c','nadph_c', 'nadp_c']
-
     compounds_info_dict = check_if_compound_names_in_model(main_model,compounds_test_list)
-
-    
-
-    
     ''' 
     logging.debug("Number of metabolites: ")
     logging.debug(len(main_model.metabolites))
     metabolites = main_model.metabolites
     for i in range(200):
         logging.debug(metabolites[i])
-
     met_name = "2agpg161_c"
     if met_name in metabolites:
         ind = metabolites.index(met_name)
@@ -328,28 +277,15 @@ def tests():
     logging.debug(x.id)
     logging.debug(x.name)
     '''
-    
-    
-
 def main():
-
     tests()
-
     ''' 
-
-
-    compounds_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/Current_Projects/Mika/FBA_Learn_Python/Examples/Added_Compounds_EColi_Mika_iAF1260.csv'
-    reactions_file_name = '/Users/omreeg/Programs/Arkin_Lab_Research_Home/Current_Projects/Mika/FBA_Learn_Python/Examples/Added_Reactions_EColi_Mika_iAF1260.csv'
+    compounds_file_name = './Examples/Added_Compounds_EColi_Mika_iAF1260.csv'
+    reactions_file_name = './Examples/Added_Reactions_EColi_Mika_iAF1260.csv'
     compounds_file_list = compounds_parser(compounds_file_name)
     reaction_file_list = reactions_parser(reactions_file_name)
     compounds_dict = add_compounds_to_compound_dict(compounds_file_list)
     Main_Model = add_reactions_to_model(reaction_file_list, compounds_dict, Main_Model)
     '''
-
-   
-    
-
-
-
-
-main()
+if __name__=="__main__":
+    main()
