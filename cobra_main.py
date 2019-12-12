@@ -156,6 +156,14 @@ def main(argv):
     # add reaction to the model anyhow
     if (rdict):
         main_model.add_reactions(rdict.values())
+    # Save model
+    outfile_name = options.sfile_name.split('.')
+    outfile_name = outfile_name[0]+'_edit.xml'
+    cobra.io.write_sbml_model(main_model,outfile_name)
+    loggy.debug(outfile_name+" has been created")
+    # Running FBA
+    solution = main_model.optimize()
+    print(solution)
     
 if __name__=="__main__":
     main(sys.argv)
