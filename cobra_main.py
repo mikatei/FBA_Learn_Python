@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 import cobra.test
-import cobra
+import cobra.io
 from cobra import Model, Reaction, Metabolite
 import os
 import sys
@@ -113,23 +113,32 @@ def main(argv):
     (options,args) = parser.parse_args()
     if (options.debuggy):
       loggy.basicConfig(level=loggy.DEBUG)
-    '''
-    cfile_name = './Examples/Added_Compounds_EColi_Mika_iAF1260.csv'
-    rfile_name = './Examples/Added_Reactions_EColi_Mika_iAF1260.csv'
-    sfile_name = './Examples/iAF1260.xml'
-    '''
+    rfile_name = options.rfile_name
+    sfile_name = options.sfile_name
+    if (options.cfile_name is None):
+      cfile_name = './Examples/Added_Compounds_EColi_Mika_iAF1260.csv'
+    else:    
+      cfile_name = options.cfile_name
+    if (options.rfile_name is None):
+      rfile_name = './Examples/Added_Reactions_EColi_Mika_iAF1260.csv'
+    else:
+      rfile_name = options.rfile_name
+    if (options.sfile_name is None):
+      sfile_name = './Examples/iAF1260.xml'
+    else:
+      sfile_name = options.sfile_name
     # read all the files
     try:
-      cdf = pd.read_csv(options.cfile_name)
-    except IOError:
+      cdf = pd.read_csv(cfile_name)
+    except:
       loggy.error('File not found: '+cfile_name)
     try:
-      rdf = pd.read_csv(options.rfile_name)
-    except IOError:
+      rdf = pd.read_csv(rfile_name)
+    except:
       loggy.error('File not found: '+rfile_name)
     try:
-      main_model = cobra.io.read_sbml_model(options.sfile_name)
-    except IOError:
+      main_model = cobra.io.read_sbml_model(sfile_name)
+    except:
       loggy.error('File not found: '+sfile_name)
       return 0
     met_list = main_model.metabolites
@@ -157,13 +166,20 @@ def main(argv):
     if (rdict):
         main_model.add_reactions(rdict.values())
     # Save model
-    outfile_name = options.sfile_name.split('.')
+    outfile_name = sfile_name.split('.')
     outfile_name = outfile_name[0]+'_edit.xml'
     cobra.io.write_sbml_model(main_model,outfile_name)
     loggy.debug(outfile_name+" has been created")
     # Running FBA
+    main_model.objective = main_model.reactions.get_by_id("rxn23603_c0");
     solution = main_model.optimize()
-    print(solution)
+    print(solution.objective_value)
+    print(main_model.summary())
+    outfile_name = outfile_name.split('.')
+    outfile_name = outfile_name[0]+'_edit2.xml'
+    cobra.io.write_sbml_model(main_model,outfile_name)
+    loggy.debug(outfile_name+" has been created")
+    print(main_model.metabolites.get_by_id('nadph_c').summary())
     
 if __name__=="__main__":
     main(sys.argv)
