@@ -176,16 +176,16 @@ def main(argv):
     outfile_name = outfile_name.split('_')[0]+'_edit2.xml'
     cobra.io.write_sbml_model(main_model,outfile_name)
     loggy.debug(outfile_name+" has been created")
-    solution.fluxes.to_csv("test1.csv")
+    solution.fluxes.to_csv("FBA_rxn23603.csv")
     main_model.objective = main_model.reactions.get_by_id("rxn23602_c0")
     solution = main_model.optimize()
-    solution.fluxes.to_csv("test2.csv")
+    solution.fluxes.to_csv("FBA_rxn23602.csv")
     main_model.objective = main_model.reactions.get_by_id("rxn23601_c0")
     solution = main_model.optimize()
-    solution.fluxes.to_csv("test3.csv")
+    solution.fluxes.to_csv("FBA_rxn23601.csv")
     main_model.objective = main_model.reactions.get_by_id("rxn21218_c0")
     solution = main_model.optimize()
-    solution.fluxes.to_csv("test4.csv")
+    solution.fluxes.to_csv("FBA_rxn21218.csv")
 
 if __name__=="__main__":
     main(sys.argv)
