@@ -113,8 +113,6 @@ def main(argv):
     (options,args) = parser.parse_args()
     if (options.debuggy):
       loggy.basicConfig(level=loggy.DEBUG)
-    rfile_name = options.rfile_name
-    sfile_name = options.sfile_name
     if (options.cfile_name is None):
       cfile_name = './Examples/Added_Compounds_EColi_Mika_iAF1260.csv'
     else:    
@@ -132,10 +130,12 @@ def main(argv):
       cdf = pd.read_csv(cfile_name)
     except:
       loggy.error('File not found: '+cfile_name)
+      return 0
     try:
       rdf = pd.read_csv(rfile_name)
     except:
       loggy.error('File not found: '+rfile_name)
+      return 0
     try:
       main_model = cobra.io.read_sbml_model(sfile_name)
     except:
@@ -166,20 +166,26 @@ def main(argv):
     if (rdict):
         main_model.add_reactions(rdict.values())
     # Save model
-    outfile_name = sfile_name.split('.')
-    outfile_name = outfile_name[0]+'_edit.xml'
+    outfile_name = sfile_name.split('/')[-1].split('.')[0]+'_edit.xml'
     cobra.io.write_sbml_model(main_model,outfile_name)
     loggy.debug(outfile_name+" has been created")
     # Running FBA
-    main_model.objective = main_model.reactions.get_by_id("rxn23603_c0");
+    # 23603: violaceinate, 23602: protoviolaceinate, 23601: protodeoxyviolaceinate, 21218: IPA-imine
+    main_model.objective = main_model.reactions.get_by_id("rxn23603_c0")
     solution = main_model.optimize()
-    print(solution.objective_value)
-    print(main_model.summary())
-    outfile_name = outfile_name.split('.')
-    outfile_name = outfile_name[0]+'_edit2.xml'
+    outfile_name = outfile_name.split('_')[0]+'_edit2.xml'
     cobra.io.write_sbml_model(main_model,outfile_name)
     loggy.debug(outfile_name+" has been created")
-    print(main_model.metabolites.get_by_id('nadph_c').summary())
-    
+    solution.fluxes.to_csv("test1.csv")
+    main_model.objective = main_model.reactions.get_by_id("rxn23602_c0")
+    solution = main_model.optimize()
+    solution.fluxes.to_csv("test2.csv")
+    main_model.objective = main_model.reactions.get_by_id("rxn23601_c0")
+    solution = main_model.optimize()
+    solution.fluxes.to_csv("test3.csv")
+    main_model.objective = main_model.reactions.get_by_id("rxn21218_c0")
+    solution = main_model.optimize()
+    solution.fluxes.to_csv("test4.csv")
+
 if __name__=="__main__":
     main(sys.argv)
